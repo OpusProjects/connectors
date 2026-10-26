@@ -2,13 +2,13 @@
 """Example connector: a key-value store kept as JSON files in a folder.
 
 It stands in for a real system's API so the whole gitops loop can run on a
-laptop: an application's config names the folder (`dir`), and each kind is one file
-of objects keyed by `name`. Editing a file by hand is "someone changed the
-system outside git", which the next check reports as drift.
+laptop. The application's config names the folder (the dir setting), and each
+kind is one file of objects keyed by name. Editing a file by hand is "someone
+changed the system outside git", which the next check reports as drift.
 
-Kinds (described to unified-gitops by `describe`, see KINDS below):
+Kinds, described to unified-gitops by the describe command (see KINDS):
   namespace  {"name", "description"?}
-  entry      {"name", "namespace", "value", ...}   depends on namespace
+  entry      {"name", "namespace", "value", ...}, depends on namespace
 """
 
 import json
@@ -29,6 +29,7 @@ KINDS = {
 
 
 def _file(config, kind):
+    """Return the path of one kind's file, creating the store folder if needed."""
     folder = config.get("dir")
     if not folder:
         raise ConnectorError(
@@ -39,6 +40,7 @@ def _file(config, kind):
 
 
 def _load(config, kind):
+    """Read one kind's objects, keyed by name; an absent file is an empty store."""
     path = _file(config, kind)
     if not os.path.exists(path):
         return {}
@@ -47,6 +49,7 @@ def _load(config, kind):
 
 
 def _save(config, kind, data):
+    """Write one kind's objects via a temporary file, so a kill never truncates it."""
     path = _file(config, kind)
     tmp = path + ".tmp"
     with open(tmp, "w") as f:
@@ -55,13 +58,36 @@ def _save(config, kind, data):
 
 
 def list_objects(kind, config, credentials):
-    # Normalised as a real connector should: sorted by key, so the order of
-    # the file never looks like a change.
+    """Return the objects of one kind, sorted by name.
+
+    Sorting is what a real connector should do too: the order of the system's
+    answer never looks like a change.
+
+    Args:
+        kind: namespace or entry.
+        config: The application's settings; dir is the store folder.
+        credentials: Unused; the store needs none.
+
+    Returns:
+        The objects of that kind.
+    """
     data = _load(config, kind)
     return [data[name] for name in sorted(data)]
 
 
 def apply(kind, op, obj, config, credentials):
+    """Create, update or delete one object.
+
+    Args:
+        kind: namespace or entry.
+        op: create, update or delete.
+        obj: The object as git declares it, or as list returned it for a delete.
+        config: The application's settings; dir is the store folder.
+        credentials: Unused; the store needs none.
+
+    Raises:
+        ConnectorError: An entry names a namespace that does not exist.
+    """
     data = _load(config, kind)
     name = obj["name"]
     if kind == "entry" and op != "delete":

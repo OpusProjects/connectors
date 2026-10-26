@@ -34,8 +34,29 @@ Run them locally before pushing:
 ```bash
 ruff format --check
 ruff check
+.github/scripts/check-public.sh   # backticks in Python, real-looking addresses and domains
 pytest
 ```
+
+## Layout
+
+One folder per system, named `vendor_product` in lowercase with underscores (`vmware_vcenter`,
+`cisco_ucs`), or one word when the vendor and the product share the name (`device42`, `centreon`).
+The vendor is the brand the product is sold under; never rename a folder after an acquisition or a
+product rename, because every service's config references the path.
+
+```
+vmware_vcenter/
+├── vmware_vcenter.py     # the script, named like its folder
+├── README.md             # what it returns, settings, credentials, permissions it needs
+├── example.yaml          # a ready connector and source item for unified-api
+└── tests/
+    ├── test_vmware_vcenter.py
+    └── fixtures/         # recorded API responses, anonymised, so tests run offline
+```
+
+`unified_connector.py` at the root is the shared SDK. Code two connectors need goes in a module at
+the root too, never in a vendor folder.
 
 ## Connector rules
 
@@ -54,10 +75,24 @@ for unified-gitops. On top of that:
 5. **Standard library first.** A dependency goes in `requirements.txt` only when it earns
    its place; the services install it into the project's virtualenv.
 
-## Code comments
+## Docstrings and comments
 
-Comment only when the *why* is non-obvious: a quirk of the system's API, a paging rule,
-a field that means something other than its name. Comments are written in English.
+Docstrings follow the Google style (`Args:`, `Returns:`, `Raises:`; ruff checks the layout) and
+are plain text: no Markdown backticks, since they are read where nothing renders them. Comment
+only when the *why* is non-obvious: a quirk of the system's API, a paging rule, a field that
+means something other than its name. Docstrings and comments are written in English.
+
+## Public by design
+
+This repository is public. Nothing in it may identify where a connector runs:
+
+- No company, team or site names, real host names, domains, addresses, serials or user names.
+- Examples and fixtures use `example.com`, `example.net`, `example.org` and the documentation
+  ranges `192.0.2.0/24`, `198.51.100.0/24` and `203.0.113.0/24`; CI rejects anything else.
+- Fixtures keep the shape of a real response with the values rewritten and cut to a few objects.
+- Settings have neutral names (`url`, `insecure`, `domain`); your real values live in your own
+  configuration, never here.
+- A connector ported from a private repository arrives as a new file, without its history.
 
 ## Releases
 

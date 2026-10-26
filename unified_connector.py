@@ -1,14 +1,15 @@
 """The connector side of the unified-gitops contract, in one file.
 
-A connector implements three functions and calls `run`:
+A gitops connector describes the kinds of object it manages, writes two
+functions and hands them to run:
 
-    from unified_connector import run
+    from unified_connector import ConnectorError, run
 
     def list_objects(kind, config, credentials):
-        return [{"name": "a", ...}, ...]          # what exists now
+        return [{"name": "a"}]                    # what exists now
 
     def apply(kind, op, obj, config, credentials):
-        ...                                       # create | update | delete one object
+        ...                                       # create, update or delete one object
 
     run(
         kinds={
@@ -19,23 +20,21 @@ A connector implements three functions and calls `run`:
         apply=apply,
     )
 
-`kinds` is what the connector manages, and it lives here, with the code that
-handles it, not in each instance's configuration: for each type of object, the
-field that identifies one (`key`, matched between git and the system) and the
-types that must exist first (`depends_on`: applied before it, deleted after).
-`describe` hands it to unified-gitops at the start of every run.
+The kinds live with the code that handles them, not in each instance's
+configuration. For each type of object they name the field that identifies one
+(key, matched between git and the system) and the types that must exist first
+(depends_on: applied before it, deleted after). The describe command hands them
+to unified-gitops at the start of every run.
 
-`run` handles everything else, the same way for every connector:
+run handles everything else, the same way for every connector:
 
-- the subcommands: `describe`, `list --kind K`, `apply --kind K`
-- APPLICATION_CONFIG (JSON) as `config`, CREDENTIAL_<FIELD> as `credentials`
-- the write guard: `apply` refuses to run unless UNIFIED_ALLOW_WRITE=1, which
-  only unified-gitops sets (unified-api never does), so a script shared with a
-  read-only tool cannot write by mistake
-- JSON on stdout, messages on stderr, and the exit code: 0 only on success,
-  never half a JSON document with a 0
+- the commands: describe, list --kind K and apply --kind K
+- the APPLICATION_CONFIG JSON as config, and CREDENTIAL_<FIELD> as credentials
+- the write guard: apply refuses to run unless UNIFIED_ALLOW_WRITE=1, which only
+  unified-gitops sets, so a script shared with unified-api cannot write by mistake
+- JSON on stdout, messages on stderr, and exit 0 only after a whole document
 
-Standard library only, so it runs in any Python 3.8+ without a virtualenv.
+Standard library only, so it runs on any Python 3.11+ without a virtualenv.
 """
 
 import json
@@ -47,7 +46,7 @@ PROTOCOL = 1
 
 
 class ConnectorError(Exception):
-    """A failure worth a clean one-line message (no traceback) on stderr."""
+    """A failure reported as one clean line on stderr, without a traceback."""
 
 
 def _credentials():
@@ -66,7 +65,7 @@ def _config():
     try:
         value = json.loads(raw)
     except json.JSONDecodeError as e:
-        raise ConnectorError(f"APPLICATION_CONFIG is not JSON: {e}")
+        raise ConnectorError(f"APPLICATION_CONFIG is not JSON: {e}") from None
     if not isinstance(value, dict):
         raise ConnectorError("APPLICATION_CONFIG must be a JSON object")
     return value
@@ -84,7 +83,17 @@ def _kind(args, kinds):
 
 
 def _describe(kinds):
-    """The kinds as describe answers them: [{"kind", "key", "depends_on"}]."""
+    """Build the describe answer from the kinds a connector declares.
+
+    Args:
+        kinds: Each kind's name mapped to its key field and optional depends_on.
+
+    Returns:
+        One dict per kind with its kind, key and depends_on.
+
+    Raises:
+        ConnectorError: A kind declares no key.
+    """
     out = []
     for name, spec in kinds.items():
         if not isinstance(spec, dict) or not spec.get("key"):
@@ -102,7 +111,15 @@ def _describe(kinds):
 
 
 def run(kinds, list_objects, apply):
-    """Dispatch the subcommand in sys.argv and exit."""
+    """Run the command named on the command line, print its result and exit.
+
+    Args:
+        kinds: Each kind's name mapped to its key field and optional depends_on.
+        list_objects: Called as list_objects(kind, config, credentials); returns
+            the objects of that kind that exist on the system now.
+        apply: Called as apply(kind, op, obj, config, credentials) to create,
+            update or delete one object.
+    """
     try:
         if len(sys.argv) < 2:
             raise ConnectorError("usage: describe | list --kind K | apply --kind K")

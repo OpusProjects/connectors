@@ -28,6 +28,14 @@ and [gitops connectors](https://github.com/OpusProjects/unified-gitops/blob/main
 
 ---
 
+## 🔌 Connectors
+
+| Folder | System | unified-api | unified-gitops |
+| ------ | ------ | :---------: | :------------: |
+| [`kv`](kv) | Key-value store in a folder (example) | | ✓ |
+
+---
+
 ## 🤝 Contributing
 
 Contributions are welcome: [CONTRIBUTING.md](CONTRIBUTING.md) covers the PR workflow, commit style, checks and connector rules.
