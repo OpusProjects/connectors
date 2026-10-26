@@ -1,0 +1,23 @@
+[project]
+name = "unified-connectors"
+description = "Reusable Python connectors for unified-api and unified-gitops."
+requires-python = ">=3.11"
+license = "Apache-2.0"
+
+[tool.ruff]
+target-version = "py311"
+
+[tool.ruff.lint]
+extend-select = ["B", "D", "I", "UP"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.per-file-ignores]
+# Test names say what they check; a docstring per test would repeat them.
+"**/tests/*" = ["D"]
+
+[tool.pytest.ini_options]
+# Connector folders are not packages, and every test file is named after its
+# connector, so importlib mode imports each one without an __init__.py.
+addopts = "--import-mode=importlib"

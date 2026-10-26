@@ -6,7 +6,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-KV = Path(__file__).resolve().parent.parent / "kv" / "kv.py"
+KV = Path(__file__).resolve().parent.parent / "kv.py"
 
 
 def run(store, *args, stdin=None, write=False):
