@@ -39,6 +39,17 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from urllib.parse import urlparse
 
+# The SDK sits at the repository root, one folder up.
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from unified_connector import (
+    ConnectorError,
+    as_bool,
+    as_int,
+    as_list,
+    credential_sets,
+    settings,
+)
+
 # What a manager that is down, slow, refusing or answering nonsense raises:
 # network errors and timeouts are OSError, a garbled answer a ParseError, a
 # refused login a RuntimeError.
@@ -347,73 +358,37 @@ def build_spare_inventory(spares):
     return inventory
 
 
-def managers_from_env(environ):
-    """Find every complete set of manager credentials.
-
-    The unified-api prefix wins over the controller one, so a manager exposed
-    under both is polled once.
-
-    Returns:
-        A list of (base_url, username, password), sorted by tag.
-    """
-    found, seen = [], set()
-    for prefix in ("CREDENTIAL_UCS_", "UCS_"):
-        for key, url in sorted(environ.items()):
-            if not (key.startswith(prefix) and key.endswith("_BASE_URL")):
-                continue
-            tag = key[len(prefix) : -len("_BASE_URL")]
-            user = environ.get(f"{prefix}{tag}_USERNAME", "")
-            password = environ.get(f"{prefix}{tag}_PASSWORD", "")
-            if tag and tag not in seen and url and user and password:
-                seen.add(tag)
-                found.append((url, user, password))
-    return found
-
-
-def _settings(environ):
-    """Read the source's settings, accepting strings or JSON types for each."""
-    raw = environ.get("SOURCE_CONFIG") or "{}"
-    try:
-        settings = json.loads(raw)
-    except json.JSONDecodeError as e:
-        raise SystemExit(f"SOURCE_CONFIG is not JSON: {e}") from None
-    if not isinstance(settings, dict):
-        settings = {}
-    domains = settings.get("domains", [])
-    if isinstance(domains, str):
-        domains = [d.strip() for d in domains.split(",") if d.strip()]
-    insecure = settings.get("insecure", False)
-    if isinstance(insecure, str):
-        insecure = insecure.strip().lower() in ("1", "true", "yes")
-    return {
-        "domains": domains,
-        "insecure": bool(insecure),
-        "timeout_seconds": int(settings.get("timeout_seconds", 60)),
-    }
-
-
-def gather(managers, settings, connect=UCSClient):
+def gather(managers, config, connect=UCSClient):
     """Poll every manager.
+
+    Args:
+        managers: Credential sets, each with base_url, username and password.
+        config: The source's settings.
+        connect: Builds a logged-in client; UCSClient unless a test fakes it.
 
     Returns:
         The servers, the spares, and the managers that failed.
     """
+    domains = as_list(config.get("domains"))
+    insecure = as_bool(config.get("insecure"))
+    timeout = as_int(config.get("timeout_seconds"), 60)
     servers, spares, failed = {}, {}, []
-    for url, user, password in managers:
+    for manager in managers:
+        url = manager["base_url"]
         try:
             client = connect(
                 url,
-                user,
-                password,
-                insecure=settings["insecure"],
-                timeout=settings["timeout_seconds"],
+                manager["username"],
+                manager["password"],
+                insecure=insecure,
+                timeout=timeout,
             )
         except FAILURES as e:  # reported, the others still count
             print(f"{manager_name(url)}: {e}", file=sys.stderr)
             failed.append(manager_name(url))
             continue
         try:
-            found, spare = collect(client, manager_name(url), settings["domains"])
+            found, spare = collect(client, manager_name(url), domains)
             servers.update(found)
             spares.update(spare)
         except FAILURES as e:
@@ -436,7 +411,9 @@ def main(argv=None, environ=None, connect=UCSClient):
     )
     args = parser.parse_args(argv)
 
-    managers = managers_from_env(environ)
+    managers = credential_sets(
+        "UCS", ("BASE_URL", "USERNAME", "PASSWORD"), environ=environ
+    )
     if not managers:
         print(
             "no UCS Manager credentials: set CREDENTIAL_UCS_<TAG>_BASE_URL, "
@@ -444,7 +421,12 @@ def main(argv=None, environ=None, connect=UCSClient):
             file=sys.stderr,
         )
         return 1
-    servers, spares, failed = gather(managers, _settings(environ), connect)
+    try:
+        config = settings(environ)
+        servers, spares, failed = gather(managers, config, connect)
+    except ConnectorError as e:
+        print(e, file=sys.stderr)
+        return 1
     if len(failed) == len(managers):
         # Not one manager answered. An empty inventory here would read as
         # "no blades" and sync green; a failure is what the caller records.
