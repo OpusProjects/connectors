@@ -1,7 +1,7 @@
 # Portainer as one unified-gitops application: settings, environments and
-# users, with prune on so the users are an allow-list. The credential key names become the CREDENTIAL_* variables the script reads;
-# their values come from PORTAINER_API_KEY and LDAP_PASSWORD in unified-gitops'
-# environment.
+# users, with prune on so the users are an allow-list. The credential key
+# names become the CREDENTIAL_* variables the script reads; their values come
+# from PORTAINER_API_KEY and LDAP_PASSWORD in unified-gitops' environment.
 connectors:
   - name: portainer
     description: "Portainer"
