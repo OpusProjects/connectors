@@ -15,6 +15,7 @@ project adheres to [Semantic Versioning](https://semver.org/).
 - `dell_avamar`: Dell Avamar backup clients as an Ansible inventory, with their recent backups.
 - `device42`: Device42 devices as an Ansible inventory, selected and grouped by DOQL filter files.
 - `infinidat_infinibox`: InfiniBox hosts as an Ansible inventory, with their mapped volumes.
+- `portainer`: Portainer settings, environments and users as gitops kinds, the LDAP bind password from a credential rather than git.
 - `pure_flasharray`: Pure Storage FlashArray hosts as an Ansible inventory, with their volumes.
 - `vmware_vcenter`: vCenter virtual machines as an Ansible inventory, through the PropertyCollector (needs pyvmomi).
 - One folder per system (`vendor_product`), with its README, example and `tests/`; CI runs ruff, pytest and a check that nothing identifies where a connector runs.
