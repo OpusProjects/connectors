@@ -32,8 +32,14 @@ and [gitops connectors](https://github.com/OpusProjects/unified-gitops/blob/main
 
 | Folder | System | unified-api | unified-gitops |
 | ------ | ------ | :---------: | :------------: |
+| [`centreon`](centreon) | Centreon monitored hosts and their services | ✓ | |
 | [`cisco_ucs`](cisco_ucs) | Cisco UCS Manager blades | ✓ | |
+| [`dell_avamar`](dell_avamar) | Dell Avamar backup clients and their backups | ✓ | |
+| [`device42`](device42) | Device42 devices, through DOQL | ✓ | |
+| [`infinidat_infinibox`](infinidat_infinibox) | InfiniBox hosts and their volumes | ✓ | |
 | [`kv`](kv) | Key-value store in a folder (example) | | ✓ |
+| [`pure_flasharray`](pure_flasharray) | Pure Storage FlashArray hosts and their volumes | ✓ | |
+| [`vmware_vcenter`](vmware_vcenter) | vCenter virtual machines | ✓ | |
 
 ---
 

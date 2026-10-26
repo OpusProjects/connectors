@@ -10,5 +10,11 @@ project adheres to [Semantic Versioning](https://semver.org/).
 
 - The connector SDK (`unified_connector.py`) and the `kv` example gitops connector.
 - SDK helpers for inventory connectors: settings from the source's config as strings or JSON, and per-system credential sets.
+- `centreon`: Centreon monitored hosts as an Ansible inventory, with their services when asked.
 - `cisco_ucs`: Cisco UCS Manager blades as an Ansible inventory, servers and spares apart.
+- `dell_avamar`: Dell Avamar backup clients as an Ansible inventory, with their recent backups.
+- `device42`: Device42 devices as an Ansible inventory, selected and grouped by DOQL filter files.
+- `infinidat_infinibox`: InfiniBox hosts as an Ansible inventory, with their mapped volumes.
+- `pure_flasharray`: Pure Storage FlashArray hosts as an Ansible inventory, with their volumes.
+- `vmware_vcenter`: vCenter virtual machines as an Ansible inventory, through the PropertyCollector (needs pyvmomi).
 - One folder per system (`vendor_product`), with its README, example and `tests/`; CI runs ruff, pytest and a check that nothing identifies where a connector runs.
