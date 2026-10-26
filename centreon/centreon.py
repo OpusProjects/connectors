@@ -72,9 +72,9 @@ import urllib.parse
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 
-# The SDK sits at the repository root, one folder up.
+# The SDK, the unified_connectors package, sits at the repository root.
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from unified_connector import ConnectorError, as_bool, as_int, as_list, settings
+from unified_connectors import ConnectorError, as_bool, as_int, as_list, settings
 
 PAGE_SIZE = 1000
 # A configuration page costs about the same at 5000 rows as at 1000.

@@ -3,9 +3,9 @@ from pathlib import Path
 
 import pytest
 
-ROOT = Path(__file__).resolve().parent.parent
+FOLDER = Path(__file__).resolve().parent.parent
 spec = importlib.util.spec_from_file_location(
-    "unified_connector", ROOT / "unified_connector.py"
+    "unified_connectors", FOLDER / "unified_connectors.py"
 )
 sdk = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(sdk)

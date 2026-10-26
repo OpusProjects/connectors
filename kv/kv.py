@@ -15,9 +15,9 @@ import json
 import os
 import sys
 
-# The SDK sits at the repository root, one folder up.
+# The SDK, the unified_connectors package, sits at the repository root.
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from unified_connector import ConnectorError, run
+from unified_connectors import ConnectorError, run
 
 # What this connector manages: each type of object, the field that identifies
 # one, and what must exist first. Entries live in a namespace, so namespaces

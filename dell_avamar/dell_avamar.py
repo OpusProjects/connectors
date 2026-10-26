@@ -42,9 +42,9 @@ import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from urllib.parse import urlencode, urlparse
 
-# The SDK sits at the repository root, one folder up.
+# The SDK, the unified_connectors package, sits at the repository root.
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from unified_connector import (
+from unified_connectors import (
     ConnectorError,
     as_bool,
     as_int,

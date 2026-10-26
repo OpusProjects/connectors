@@ -53,9 +53,9 @@ import urllib.error
 import urllib.request
 from urllib.parse import urlencode, urlparse
 
-# The SDK sits at the repository root, one folder up.
+# The SDK, the unified_connectors package, sits at the repository root.
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from unified_connector import ConnectorError, as_bool, as_int, settings
+from unified_connectors import ConnectorError, as_bool, as_int, settings
 
 PAGE_SIZE = 1000
 GROUP_PREFIX = "iboxarray_"
