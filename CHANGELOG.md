@@ -9,4 +9,5 @@ project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 
 - The connector SDK (`unified_connector.py`) and the `kv` example gitops connector.
+- `cisco_ucs`: Cisco UCS Manager blades as an Ansible inventory, servers and spares apart.
 - One folder per system (`vendor_product`), with its README, example and `tests/`; CI runs ruff, pytest and a check that nothing identifies where a connector runs.
