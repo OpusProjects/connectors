@@ -30,8 +30,19 @@ and [gitops connectors](https://github.com/OpusProjects/unified-gitops/blob/main
 
 ## 🤝 Contributing
 
-Contributions are welcome: [CONTRIBUTING.md](CONTRIBUTING.md) covers the PR workflow, commit style and the rules a connector follows.
+Contributions are welcome: [CONTRIBUTING.md](CONTRIBUTING.md) covers the PR workflow, commit style, checks and connector rules.
 
-## 📄 License
+Security issues: see [SECURITY.md](SECURITY.md) for private reporting.
+
+---
+
+## 👥 Authors
+
+- [Fernando Roca](https://github.com/fernandorocagonzalez)
+- [Blai Peidro](https://github.com/blaipr)
+
+---
+
+## ⚖️ License
 
 [Apache 2.0](LICENSE)
