@@ -13,7 +13,7 @@ API reference. Only the fields a file declares are compared and written; the res
 | ---- | --- | ---------- |
 | `settings` | `name` | The global settings, one object whose `name` is `settings` |
 | `environment` | `Name` | An environment; created only for agents (`Type` 2 or 6) |
-| `user` | `Username` | A user who may sign in, with `Role` `administrator` or `standard` |
+| `user` | `Username` | A user who may sign in, with `Role` `administrator` or `standard`; after `settings` |
 
 - **settings** are updated with `PUT /api/settings`; they cannot be created or deleted.
 - **environment** updates lay each declared block over the live one, because `PUT` replaces a
@@ -39,11 +39,11 @@ Prune is per application, so keep users in an application of their own when they
 | Field | Meaning |
 | ----- | ------- |
 | `api_key` | A Portainer access token (or `username` and `password` instead) |
-| `ldap_bind_password` | The LDAP bind password, needed when `settings` declare `LDAPSettings` |
+| `ldap_bind_password` | Optional: the LDAP bind password, sent with settings that declare `LDAPSettings` |
 
-Portainer never returns the bind password, so git never holds it: the connector adds it to every
-settings update that carries `LDAPSettings`, which would otherwise blank it. A rotated password
-reaches Portainer with the next settings update.
+Portainer never returns the bind password, so git never holds it. Portainer keeps the stored one
+when an update carries none; with `ldap_bind_password` set, the connector adds it to every settings
+update that carries `LDAPSettings`, so a rotated password arrives with the next one.
 
 ## Desired state
 

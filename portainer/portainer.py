@@ -20,9 +20,9 @@ Settings (the application's config):
 
 Credentials:
   api_key             a Portainer access token; or username and password
-  ldap_bind_password  the LDAP bind password, sent with every settings update
-                      that carries LDAPSettings, because Portainer never
-                      returns it and would otherwise blank it
+  ldap_bind_password  optional: the LDAP bind password, sent with every
+                      settings update that carries LDAPSettings; without it
+                      Portainer keeps the one it has
 """
 
 import http.client
@@ -38,11 +38,12 @@ from urllib.parse import urlsplit
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from unified_connectors import ConnectorError, run
 
-# Nothing in Portainer makes one kind depend on another.
+# Users after settings: a user with no password can exist only once LDAP
+# sign-in is on, which is a setting.
 KINDS = {
     "settings": {"key": "name"},
     "environment": {"key": "Name"},
-    "user": {"key": "Username"},
+    "user": {"key": "Username", "depends_on": ["settings"]},
 }
 
 SETTINGS_NAME = "settings"
@@ -228,12 +229,10 @@ def _apply_settings(api, op, obj, credentials):
     if op == "delete":
         raise ConnectorError("settings cannot be deleted")
     body = {k: v for k, v in obj.items() if k != "name"}
-    if "LDAPSettings" in body:
-        password = credentials.get("ldap_bind_password")
-        if not password:
-            raise ConnectorError(
-                "settings declare LDAPSettings: credentials need ldap_bind_password"
-            )
+    # Portainer keeps the stored bind password when the body carries none, so
+    # it is sent only when configured: that is how a rotated one arrives.
+    password = credentials.get("ldap_bind_password")
+    if "LDAPSettings" in body and password:
         body["LDAPSettings"] = {**body["LDAPSettings"], "Password": password}
     api.call("PUT", "/api/settings", body)
 
