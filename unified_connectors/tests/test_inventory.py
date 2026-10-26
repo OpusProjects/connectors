@@ -4,9 +4,7 @@ from pathlib import Path
 import pytest
 
 FOLDER = Path(__file__).resolve().parent.parent
-spec = importlib.util.spec_from_file_location(
-    "unified_connectors", FOLDER / "unified_connectors.py"
-)
+spec = importlib.util.spec_from_file_location("inventory", FOLDER / "inventory.py")
 sdk = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(sdk)
 

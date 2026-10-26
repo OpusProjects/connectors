@@ -14,18 +14,22 @@ from unified_connectors import (
 )
 ```
 
-## Inventory connectors (unified-api)
+## Inventory connectors (unified-api, Ascender)
+
+Inventory connectors import nothing: each carries a copy of the helpers in `inventory.py` between
+the shared-helpers markers, so it runs as a single file anywhere.
 
 | Helper | What it does |
 | ------ | ------------ |
-| `settings()` | The source's `config:` as a dict, from `SOURCE_CONFIG`; refuses anything but a JSON object |
+| `settings()` | The source's settings as a dict, from `SOURCE_CONFIG`; refuses anything but a JSON object |
 | `as_list(value, default)` | A list from a comma-separated string (`"a, b"`) or a JSON list |
 | `as_bool(value, default)` | `true`, `1` and `yes` in any case are true |
 | `as_int(value, default)` | A whole number, or a clear error |
 | `credential_sets(prefix, required, optional)` | Every complete `<PREFIX>_<TAG>_<FIELD>` set, unified-api's `CREDENTIAL_` form first |
 
 unified-api passes every `config:` value as a string, so a connector reads `domains: "a,b"` with
-`as_list` and `insecure: "true"` with `as_bool`.
+`as_list` and `insecure: "true"` with `as_bool`. To change a helper, edit `inventory.py`, copy the
+block into every connector, and run `.github/scripts/check-helpers.sh`.
 
 ## Gitops connectors (unified-gitops)
 

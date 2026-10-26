@@ -41,6 +41,12 @@ and [gitops connectors](https://github.com/OpusProjects/unified-gitops/blob/main
 | [`pure_flasharray`](pure_flasharray) | Pure Storage FlashArray hosts and their volumes | ✓ | |
 | [`vmware_vcenter`](vmware_vcenter) | vCenter virtual machines | ✓ | |
 
+Every inventory connector is a single file that imports nothing from this repository: copy it
+anywhere, or point unified-api or Ascender at it in a checkout. Outside unified-api, set the
+source's settings as JSON in `SOURCE_CONFIG` and the credentials as the variables its README
+lists, for example `UCS_<TAG>_BASE_URL`, `_USERNAME` and `_PASSWORD` from a credential type.
+`vmware_vcenter` needs pyvmomi; `device42` uses PyYAML when its filter files are YAML.
+
 ---
 
 ## 🤝 Contributing

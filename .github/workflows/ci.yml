@@ -20,4 +20,5 @@ jobs:
       - run: ruff format --check
       - run: ruff check
       - run: .github/scripts/check-public.sh
+      - run: .github/scripts/check-helpers.sh
       - run: pytest
