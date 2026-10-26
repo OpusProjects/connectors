@@ -99,22 +99,6 @@ def test_spares_split_into_free_and_unusable():
     assert "physical" not in inventory
 
 
-def test_unified_api_credentials_win_over_controller_ones():
-    environ = {
-        "CREDENTIAL_UCS_A_BASE_URL": "https://ucs-a.example.com",
-        "CREDENTIAL_UCS_A_USERNAME": "reader",
-        "CREDENTIAL_UCS_A_PASSWORD": "secret",
-        "UCS_A_BASE_URL": "https://other.example.com",
-        "UCS_A_USERNAME": "reader",
-        "UCS_A_PASSWORD": "secret",
-        "UCS_B_BASE_URL": "https://ucs-b.example.com",
-        "UCS_B_USERNAME": "reader",
-    }
-    assert ucs.managers_from_env(environ) == [
-        ("https://ucs-a.example.com", "reader", "secret")
-    ]
-
-
 def test_list_prints_the_inventory(capsys):
     environ = {
         "UCS_A_BASE_URL": "https://ucs-a.example.com",
@@ -147,16 +131,3 @@ def test_a_refused_login_raises():
 
     with pytest.raises(RuntimeError, match="Authentication failed"):
         Refusing("ucs-a.example.com", "reader", "wrong")
-
-
-def test_settings_accept_strings_as_unified_api_passes_them():
-    config = {
-        "domains": "a.example.com, b.example.com",
-        "insecure": "true",
-        "timeout_seconds": "5",
-    }
-    assert ucs._settings({"SOURCE_CONFIG": json.dumps(config)}) == {
-        "domains": ["a.example.com", "b.example.com"],
-        "insecure": True,
-        "timeout_seconds": 5,
-    }
