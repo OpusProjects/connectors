@@ -1,0 +1,54 @@
+# VMware vCenter virtual machines as unified-api sources. Two connectors over
+# one script: a fast pass that names hosts after the guest's own FQDN and
+# never looks up DNS, and one that expands short names through DNS. A
+# host-scoped sync asks for the named VMs only. Each vCenter has a credential
+# whose keys become CREDENTIAL_VCENTER_<TAG>_*; the values come from
+# VCENTER_A_BASE_URL, VCENTER_A_USERNAME and VCENTER_A_PASSWORD in unified-api's
+# own environment.
+connectors:
+  - name: vcenter
+    description: "VMware vCenter, guest names"
+    type: script
+    project: prj-unified-connectors
+    path: vmware_vcenter/vmware_vcenter.py
+    script_args: ["--list", "--prefer-guest-dns", "--no-resolve-fqdn"]
+    host_args: ["--host-with-groups", "{target}", "--prefer-guest-dns", "--resolve-fqdn"]
+    output_format: ansible
+  - name: vcenter-fqdn
+    description: "VMware vCenter, names resolved through DNS"
+    type: script
+    project: prj-unified-connectors
+    path: vmware_vcenter/vmware_vcenter.py
+    script_args: ["--list", "--prefer-guest-dns", "--resolve-fqdn"]
+    host_args: ["--host-with-groups", "{target}", "--prefer-guest-dns", "--resolve-fqdn"]
+    output_format: ansible
+    timeout_seconds: 1800
+
+credentials:
+  - name: cred-vcenter-a
+    description: "vCenter A"
+    type: username_password
+    env_prefix: VCENTER_A
+    secret_keys:
+      vcenter_a_base_url: BASE_URL
+      vcenter_a_username: USERNAME
+      vcenter_a_password: PASSWORD
+
+sources:
+  - name: src-vcenter
+    description: "vCenter virtual machines"
+    connector: vcenter
+    credentials: [cred-vcenter-a]
+    config:
+      insecure: "true"
+    sync_interval_seconds: 7200
+    ttl_seconds: 600
+  - name: src-vcenter-fqdn
+    description: "vCenter virtual machines, DNS names"
+    connector: vcenter-fqdn
+    credentials: [cred-vcenter-a]
+    config:
+      domains: "example.com,example.net"
+      insecure: "true"
+    sync_interval_seconds: 21600
+    ttl_seconds: 21600
