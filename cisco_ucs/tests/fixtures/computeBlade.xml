@@ -1,0 +1,22 @@
+<configResolveClass cookie="" response="yes" classId="computeBlade">
+  <outConfigs>
+    <computeBlade dn="sys/chassis-1/blade-1" chassisId="1" slotId="1" association="associated"
+      assignedToDn="org-root/ls-web01" availability="unavailable" operability="operable"
+      operState="ok" operPower="on" model="UCSB-B200-M5" serial="FCH0000A001"
+      uuid="00000000-0000-0000-0000-000000000001" numOfCpus="2" numOfCores="32"
+      numOfThreads="64" totalMemory="393216" usrLbl="rack A"/>
+    <computeBlade dn="sys/chassis-1/blade-2" chassisId="1" slotId="2" association="associated"
+      assignedToDn="org-root/org-apps/ls-DB01" availability="unavailable" operability="operable"
+      operState="ok" operPower="on" model="UCSB-B200-M5" serial="FCH0000A002"
+      uuid="00000000-0000-0000-0000-000000000002" numOfCpus="2" numOfCores="32"
+      numOfThreads="64" totalMemory="786432" usrLbl=""/>
+    <computeBlade dn="sys/chassis-2/blade-3" chassisId="2" slotId="3" association="none"
+      assignedToDn="" availability="available" operability="operable" operState="unassociated"
+      operPower="off" model="UCSB-B200-M5" serial="FCH0000A003" uuid="" numOfCpus="2"
+      numOfCores="32" numOfThreads="64" totalMemory="262144" usrLbl=""/>
+    <computeBlade dn="sys/chassis-2/blade-4" chassisId="2" slotId="4" association="none"
+      assignedToDn="" availability="unavailable" operability="inoperable" operState="discovery-failed"
+      operPower="off" model="UCSB-B200-M4" serial="FCH0000A004" uuid="" numOfCpus="2"
+      numOfCores="24" numOfThreads="48" totalMemory="131072" usrLbl="faulty"/>
+  </outConfigs>
+</configResolveClass>

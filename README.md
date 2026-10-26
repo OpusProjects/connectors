@@ -32,6 +32,7 @@ and [gitops connectors](https://github.com/OpusProjects/unified-gitops/blob/main
 
 | Folder | System | unified-api | unified-gitops |
 | ------ | ------ | :---------: | :------------: |
+| [`cisco_ucs`](cisco_ucs) | Cisco UCS Manager blades | ✓ | |
 | [`kv`](kv) | Key-value store in a folder (example) | | ✓ |
 
 ---

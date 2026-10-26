@@ -1,0 +1,5 @@
+<configResolveChildren cookie="" response="yes" classId="vnicEtherIf">
+  <outConfigs>
+    <vnicEtherIf name="backend" defaultNet="no"/>
+  </outConfigs>
+</configResolveChildren>

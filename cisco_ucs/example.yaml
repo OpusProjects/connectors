@@ -1,0 +1,47 @@
+# Cisco UCS Manager blades as unified-api sources: a connector for the servers
+# and one for the spares, a credential per manager, and a source for each.
+# The credential key names become the CREDENTIAL_UCS_<TAG>_* variables the
+# script reads; their values come from UCS_A_BASE_URL, UCS_A_USERNAME and
+# UCS_A_PASSWORD in unified-api's own environment.
+connectors:
+  - name: cisco-ucs
+    description: "Cisco UCS Manager, blades running a server"
+    type: script
+    project: prj-unified-connectors
+    path: cisco_ucs/cisco_ucs.py
+    script_args: ["--list"]
+    output_format: ansible
+  - name: cisco-ucs-spares
+    description: "Cisco UCS Manager, blades with no service profile"
+    type: script
+    project: prj-unified-connectors
+    path: cisco_ucs/cisco_ucs.py
+    script_args: ["--list", "--spares"]
+    output_format: ansible
+
+credentials:
+  - name: cred-ucs-a
+    description: "UCS Manager A"
+    type: username_password
+    env_prefix: UCS_A
+    secret_keys:
+      ucs_a_base_url: BASE_URL
+      ucs_a_username: USERNAME
+      ucs_a_password: PASSWORD
+
+sources:
+  - name: src-ucs
+    description: "UCS blades running a server"
+    connector: cisco-ucs
+    credentials: [cred-ucs-a]
+    config:
+      domains: "example.com,example.net"
+      insecure: "false"
+    sync_interval_seconds: 7200
+    ttl_seconds: 7200
+  - name: src-ucs-spares
+    description: "UCS blades with no service profile"
+    connector: cisco-ucs-spares
+    credentials: [cred-ucs-a]
+    sync_interval_seconds: 7200
+    ttl_seconds: 7200

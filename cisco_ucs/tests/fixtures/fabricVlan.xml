@@ -1,0 +1,6 @@
+<configResolveClass cookie="" response="yes" classId="fabricVlan">
+  <outConfigs>
+    <fabricVlan dn="fabric/lan/net-frontend" name="frontend" id="110"/>
+    <fabricVlan dn="fabric/lan/net-backend" name="backend" id="120"/>
+  </outConfigs>
+</configResolveClass>

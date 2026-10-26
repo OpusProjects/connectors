@@ -1,0 +1,7 @@
+<configResolveClass cookie="" response="yes" classId="vnicEther">
+  <outConfigs>
+    <vnicEther dn="org-root/ls-web01/ether-eth0" name="eth0" addr="00:25:B5:00:00:01"/>
+    <vnicEther dn="org-root/org-apps/ls-DB01/ether-eth0" name="eth0" addr="derived"/>
+    <vnicEther dn="org-root/ls-template/ether-eth0" name="eth0" addr="00:25:B5:00:00:99"/>
+  </outConfigs>
+</configResolveClass>
