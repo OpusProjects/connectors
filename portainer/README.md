@@ -13,7 +13,7 @@ API reference. Only the fields a file declares are compared and written; the res
 | ---- | --- | ---------- |
 | `settings` | `name` | The global settings, one object whose `name` is `settings` |
 | `environment` | `Name` | An environment; created only for agents (`Type` 2 or 6) |
-| `user` | `Username` | A user who may sign in, with `Role` `administrator` or `standard` |
+| `user` | `Username` | A user who may sign in, with `Role` `administrator` or `standard`; after `settings` |
 
 - **settings** are updated with `PUT /api/settings`; they cannot be created or deleted.
 - **environment** updates lay each declared block over the live one, because `PUT` replaces a

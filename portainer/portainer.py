@@ -38,11 +38,12 @@ from urllib.parse import urlsplit
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from unified_connectors import ConnectorError, run
 
-# Nothing in Portainer makes one kind depend on another.
+# Users after settings: a user with no password can exist only once LDAP
+# sign-in is on, which is a setting.
 KINDS = {
     "settings": {"key": "name"},
     "environment": {"key": "Name"},
-    "user": {"key": "Username"},
+    "user": {"key": "Username", "depends_on": ["settings"]},
 }
 
 SETTINGS_NAME = "settings"
