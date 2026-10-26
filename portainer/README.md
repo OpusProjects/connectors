@@ -39,11 +39,11 @@ Prune is per application, so keep users in an application of their own when they
 | Field | Meaning |
 | ----- | ------- |
 | `api_key` | A Portainer access token (or `username` and `password` instead) |
-| `ldap_bind_password` | The LDAP bind password, needed when `settings` declare `LDAPSettings` |
+| `ldap_bind_password` | Optional: the LDAP bind password, sent with settings that declare `LDAPSettings` |
 
-Portainer never returns the bind password, so git never holds it: the connector adds it to every
-settings update that carries `LDAPSettings`, which would otherwise blank it. A rotated password
-reaches Portainer with the next settings update.
+Portainer never returns the bind password, so git never holds it. Portainer keeps the stored one
+when an update carries none; with `ldap_bind_password` set, the connector adds it to every settings
+update that carries `LDAPSettings`, so a rotated password arrives with the next one.
 
 ## Desired state
 

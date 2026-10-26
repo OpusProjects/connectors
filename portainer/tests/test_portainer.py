@@ -96,10 +96,10 @@ def test_settings_update_sends_the_bind_password_git_never_holds(fake):
     assert "name" not in body
 
 
-def test_settings_with_ldap_need_the_bind_password(fake):
+def test_settings_without_a_bind_password_leave_portainer_s_own(fake):
     obj = {"name": "settings", "LDAPSettings": {"URL": "ldap.example.com:636"}}
-    with pytest.raises(portainer.ConnectorError, match="ldap_bind_password"):
-        portainer.apply("settings", "update", obj, CONFIG, {"api_key": "k"})
+    portainer.apply("settings", "update", obj, CONFIG, {"api_key": "k"})
+    assert "Password" not in fake.calls[-1][2]["LDAPSettings"]
 
 
 def test_settings_are_never_deleted(fake):
