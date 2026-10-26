@@ -38,6 +38,7 @@ and [gitops connectors](https://github.com/OpusProjects/unified-gitops/blob/main
 | [`device42`](device42) | Device42 devices, through DOQL | ✓ | |
 | [`infinidat_infinibox`](infinidat_infinibox) | InfiniBox hosts and their volumes | ✓ | |
 | [`kv`](kv) | Key-value store in a folder (example) | | ✓ |
+| [`portainer`](portainer) | Portainer settings, environments and users | | ✓ |
 | [`pure_flasharray`](pure_flasharray) | Pure Storage FlashArray hosts and their volumes | ✓ | |
 | [`vmware_vcenter`](vmware_vcenter) | vCenter virtual machines | ✓ | |
 

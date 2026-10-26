@@ -1,0 +1,32 @@
+{
+  "settings": {
+    "AuthenticationMethod": 1,
+    "LDAPSettings": {"URL": "", "AnonymousMode": true},
+    "UserSessionTimeout": "8h",
+    "SnapshotInterval": "5m"
+  },
+  "endpoints": [
+    {
+      "Id": 1,
+      "Name": "Local",
+      "Type": 5,
+      "URL": "https://kubernetes.default.svc",
+      "Kubernetes": {
+        "Configuration": {"UseServerMetrics": false, "UseLoadBalancer": false},
+        "Snapshots": [{"KubernetesVersion": "v1.30.0"}]
+      }
+    },
+    {
+      "Id": 2,
+      "Name": "agent-b",
+      "Type": 2,
+      "URL": "tcp://agent-b.example.com:9001",
+      "TLSConfig": {"TLS": true, "TLSSkipVerify": true}
+    }
+  ],
+  "users": [
+    {"Id": 1, "Username": "admin", "Role": 1},
+    {"Id": 2, "Username": "jane.doe", "Role": 1},
+    {"Id": 3, "Username": "john.roe", "Role": 2}
+  ]
+}
