@@ -1,0 +1,36 @@
+# A Pure Storage FlashArray as a unified-api source: one connector item, one
+# credential and one source per array. The credential key names become the
+# CREDENTIAL_PURE_<TAG>_* variables the script reads; their values come from
+# PURE_A_BASE_URL, PURE_A_USERNAME and PURE_A_PASSWORD in unified-api's
+# environment.
+connectors:
+  - name: pure-flasharray
+    description: "Pure Storage FlashArray"
+    type: script
+    project: prj-unified-connectors
+    path: pure_flasharray/pure_flasharray.py
+    script_args: ["--list"]
+    host_args: ["--host", "{target}"]
+    output_format: ansible
+
+credentials:
+  - name: cred-pure-a
+    description: "FlashArray A"
+    type: username_password
+    env_prefix: PURE_A
+    secret_keys:
+      pure_a_base_url: BASE_URL
+      pure_a_username: USERNAME
+      pure_a_password: PASSWORD
+
+sources:
+  - name: src-pure-a
+    description: "FlashArray A hosts and LUNs"
+    connector: pure-flasharray
+    credentials: [cred-pure-a]
+    config:
+      resolve_fqdn: "true"
+      domain: "example.com"
+      insecure: "false"
+    sync_interval_seconds: 3600
+    ttl_seconds: 7200

@@ -1,0 +1,5 @@
+[
+  {"vol": "shared-vg/data01", "lun": 254, "hgroup": "cluster-a"},
+  {"vol": "shared-vg/data02", "lun": 253, "hgroup": "cluster-a"},
+  {"vol": "scratch", "lun": 10, "hgroup": "cluster-a"}
+]

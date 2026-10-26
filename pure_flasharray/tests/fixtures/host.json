@@ -1,0 +1,5 @@
+[
+  {"name": "web01", "iqn": [], "wwn": ["2100000000000001", "2100000000000002"], "nqn": [], "personality": null, "hgroup": "cluster-a"},
+  {"name": "web02", "iqn": ["eui.02004567A425678D"], "wwn": [], "nqn": [], "personality": "esxi", "hgroup": "cluster-a"},
+  {"name": "db01.example.net", "iqn": [], "wwn": ["2100000000000009"], "nqn": [], "personality": null, "hgroup": null}
+]
