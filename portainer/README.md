@@ -23,8 +23,9 @@ API reference. Only the fields a file declares are compared and written; the res
 - **user** is created with no password, for LDAP sign-in. The built-in admin (user 1) is never
   listed or touched: it is the way back in.
 
-Prune is per application, so keep users in an application of their own when they are an allow-list
-(prune on), and settings and environments in another (prune off).
+One application can hold all three kinds. With prune on, users not in git are deleted (an
+allow-list), and so are agent environments; Portainer's local environment never is. To keep
+environments out of prune, put users in an application of their own.
 
 ## Settings
 
@@ -72,4 +73,4 @@ items:
     Role: administrator
 ```
 
-See [example.yaml](example.yaml) for the connector, credentials and the two applications.
+See [example.yaml](example.yaml) for the connector, credentials and the application.

@@ -1,6 +1,5 @@
-# Portainer as two unified-gitops applications over one connector: settings
-# and environments with prune off, users with prune on (an allow-list). The
-# credential key names become the CREDENTIAL_* variables the script reads;
+# Portainer as one unified-gitops application: settings, environments and
+# users, with prune on so the users are an allow-list. The credential key names become the CREDENTIAL_* variables the script reads;
 # their values come from PORTAINER_API_KEY and LDAP_PASSWORD in unified-gitops'
 # environment.
 connectors:
@@ -26,21 +25,12 @@ credentials:
 
 applications:
   - name: portainer
-    description: "Portainer settings and environments"
+    description: "Portainer settings, environments and users"
     connector: portainer
     credentials: [cred-portainer, cred-portainer-ldap]
     config:
       url: "https://portainer.example.com"
     project: prj-portainer-state
     path: portainer
-    sync_interval_seconds: 600
-  - name: portainer-users
-    description: "Who may sign in to Portainer"
-    connector: portainer
-    credentials: [cred-portainer]
-    config:
-      url: "https://portainer.example.com"
-    project: prj-portainer-state
-    path: portainer-users
     prune: true
     sync_interval_seconds: 600
