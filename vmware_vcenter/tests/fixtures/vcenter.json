@@ -1,0 +1,32 @@
+{
+  "datacenters": [{"id": "datacenter-1", "name": "East (main)"}],
+  "clusters": [
+    {"id": "domain-c1", "name": "compute-01", "datacenter": "datacenter-1"},
+    {"id": "domain-c2", "name": "edge:02", "datacenter": "datacenter-1"}
+  ],
+  "hosts": [
+    {"id": "host-1", "name": "esx01.example.com", "cluster": "domain-c1"},
+    {"id": "host-2", "name": "esx02.example.com", "cluster": "domain-c2"},
+    {"id": "host-3", "name": "esx03.example.com", "cluster": null}
+  ],
+  "vms": [
+    {"id": "vm-1", "name": "web01", "host": "host-1", "uuid": "42000000-0000-0000-0000-000000000001",
+     "guest_fullname": "Oracle Linux 9 (64-bit)", "power": "poweredOn", "cpu": 4, "memory_mb": 8192,
+     "guest_hostname": "web01.example.com", "ip": "192.0.2.11",
+     "nics": [{"mac": "00:50:56:00:00:01", "network": "frontend", "ipv4s": ["192.0.2.11", "fe80::1"]}],
+     "disks": [{"label": "Hard disk 1", "bytes": 53687091200, "thin": true, "file": "[datastore1] web01/web01.vmdk"},
+               {"label": "Hard disk 2", "kb": 1048576, "thin": false, "file": "[datastore1] web01/web01_1.vmdk"}]},
+    {"id": "vm-2", "name": "db01", "host": "host-1", "uuid": "42000000-0000-0000-0000-000000000002",
+     "guest_fullname": "Oracle Linux 8 (64-bit)", "power": "poweredOn", "cpu": 8, "memory_mb": 32768,
+     "guest_hostname": "db01", "ip": null,
+     "nics": [{"mac": "00:50:56:00:00:02", "network": "backend", "ipv4s": ["192.0.2.21"]}], "disks": []},
+    {"id": "vm-3", "name": "app01.example.net", "host": "host-2", "uuid": "42000000-0000-0000-0000-000000000003",
+     "guest_fullname": null, "power": "poweredOff", "cpu": 2, "memory_mb": 3000,
+     "guest_hostname": null, "ip": null, "nics": [], "disks": []},
+    {"id": "vm-4", "name": "lab01", "host": "host-3", "uuid": "42000000-0000-0000-0000-000000000004",
+     "guest_fullname": "Other Linux (64-bit)", "power": "poweredOn", "cpu": 1, "memory_mb": 1024,
+     "guest_hostname": null, "ip": "198.51.100.4", "nics": [], "disks": []},
+    {"id": "vm-5", "name": null, "host": "host-3", "uuid": null, "guest_fullname": null, "power": "poweredOff",
+     "cpu": 1, "memory_mb": 512, "guest_hostname": null, "ip": null, "nics": [], "disks": []}
+  ]
+}

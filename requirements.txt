@@ -1,0 +1,2 @@
+# Only what a connector cannot do with the standard library.
+pyvmomi~=9.1.1  # vmware_vcenter: the vSphere API and its PropertyCollector
