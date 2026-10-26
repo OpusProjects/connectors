@@ -9,7 +9,7 @@ project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 
 - The connector SDK (the `unified_connectors` package) and the `kv` example gitops connector.
-- SDK helpers for inventory connectors: settings from the source's config as strings or JSON, and per-system credential sets.
+- Inventory connectors are standalone files: each carries the settings and credential helpers (settings from the source's config as strings or JSON, per-system credential sets), checked in CI against one reference copy.
 - `centreon`: Centreon monitored hosts as an Ansible inventory, with their services when asked.
 - `cisco_ucs`: Cisco UCS Manager blades as an Ansible inventory, servers and spares apart.
 - `dell_avamar`: Dell Avamar backup clients as an Ansible inventory, with their recent backups.

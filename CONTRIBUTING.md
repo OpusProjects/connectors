@@ -35,6 +35,7 @@ Run them locally before pushing:
 ruff format --check
 ruff check
 .github/scripts/check-public.sh   # backticks in Python, real-looking addresses and domains
+.github/scripts/check-helpers.sh  # every connector's shared helpers match the reference copy
 pytest
 ```
 
@@ -55,12 +56,15 @@ vmware_vcenter/
     └── fixtures/         # recorded API responses, anonymised, so tests run offline
 ```
 
-`unified_connectors/` is the shared SDK: a package every connector imports after putting the
-repository root on its path, laid out like a connector otherwise (its code in
-`unified_connectors.py`, a README, `tests/`). Inventory connectors read their settings with its
-`settings`, `as_list`, `as_bool` and `as_int` (unified-api passes every `config:` value as a
-string) and find per-system credentials with `credential_sets`. Code two connectors need goes in
-the SDK too, never in a vendor folder.
+An inventory connector is one standalone file: it imports nothing from this repository, so it runs
+anywhere a single script can (unified-api, Ascender or another Ansible controller, a cron job).
+The settings and credential helpers every one of them needs (`settings`, `as_list`, `as_bool`,
+`as_int`, `credential_sets`) are copied into it between the `begin shared helpers` and `end shared
+helpers` markers. The reference copy is `unified_connectors/inventory.py`: change it there, copy
+the block to every connector, and CI fails until all copies match.
+
+`unified_connectors/` also holds the gitops SDK (`run`), which gitops connectors such as `kv`
+import; laid out like a connector otherwise, with a README and `tests/`.
 
 ## Connector rules
 

@@ -1,23 +1,5 @@
-"""The shared SDK every connector imports; the code is in unified_connectors.py."""
+"""The shared SDK for gitops connectors; the code is in unified_connectors.py."""
 
-from .unified_connectors import (
-    PROTOCOL,
-    ConnectorError,
-    as_bool,
-    as_int,
-    as_list,
-    credential_sets,
-    run,
-    settings,
-)
+from .unified_connectors import PROTOCOL, ConnectorError, run
 
-__all__ = [
-    "PROTOCOL",
-    "ConnectorError",
-    "as_bool",
-    "as_int",
-    "as_list",
-    "credential_sets",
-    "run",
-    "settings",
-]
+__all__ = ["PROTOCOL", "ConnectorError", "run"]
