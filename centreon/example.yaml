@@ -1,0 +1,36 @@
+# Centreon as a unified-api source. The credential's keys become the
+# CREDENTIAL_BASE_URL, CREDENTIAL_USERNAME and CREDENTIAL_PASSWORD variables
+# the script reads; their values come from CENTREON_BASE_URL,
+# CENTREON_USERNAME and CENTREON_PASSWORD in unified-api's own environment.
+connectors:
+  - name: centreon
+    description: "Centreon monitoring"
+    type: script
+    project: prj-unified-connectors
+    path: centreon/centreon.py
+    script_args: ["--list"]
+    host_args: ["--host-with-groups", "{target}"]
+    output_format: ansible
+    timeout_seconds: 600
+
+credentials:
+  - name: cred-centreon
+    description: "Centreon read-only API user"
+    type: username_password
+    env_prefix: CENTREON
+    secret_keys:
+      base_url: BASE_URL
+      username: USERNAME
+      password: PASSWORD
+
+sources:
+  - name: src-centreon
+    description: "Hosts as Centreon monitors them"
+    connector: centreon
+    credentials: [cred-centreon]
+    config:
+      domains: ".prod.east.example.com,.prod.west.example.com"
+      datacenter_pattern: "(?:^|\\.)(east|west)(?:\\.|$)"
+      include_services: "true"
+    sync_interval_seconds: 600
+    ttl_seconds: 600

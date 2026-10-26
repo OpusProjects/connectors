@@ -1,0 +1,45 @@
+[
+ {
+  "id": 201,
+  "name": "Ping",
+  "parent": {
+   "name": "web01.prod.east"
+  },
+  "status": {
+   "name": "OK"
+  },
+  "is_in_downtime": false
+ },
+ {
+  "id": 202,
+  "name": "HTTP",
+  "parent": {
+   "name": "web01.prod.east"
+  },
+  "status": {
+   "name": "WARNING"
+  },
+  "is_in_downtime": false
+ },
+ {
+  "id": 203,
+  "name": "Ping",
+  "parent": {
+   "name": "db01.prod.west.example.com"
+  },
+  "status": {
+   "name": "CRITICAL"
+  },
+  "is_in_downtime": true
+ },
+ {
+  "id": 204,
+  "name": "Ping",
+  "parent": {
+   "name": "unknown.example.net"
+  },
+  "status": {
+   "name": "OK"
+  }
+ }
+]

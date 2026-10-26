@@ -1,0 +1,36 @@
+[
+ {
+  "id": 101,
+  "name": "web01.prod.east",
+  "alias": "web01",
+  "fqdn": "192.0.2.11",
+  "monitoring_server_name": "Central",
+  "status": {
+   "name": "UP"
+  },
+  "is_in_downtime": false,
+  "is_acknowledged": false
+ },
+ {
+  "id": 102,
+  "name": "db01.prod.west.example.com",
+  "alias": "",
+  "fqdn": "db01.prod.west.example.com",
+  "monitoring_server_name": "Poller-2",
+  "status": {
+   "name": "DOWN"
+  },
+  "is_in_downtime": true,
+  "is_acknowledged": true
+ },
+ {
+  "id": 103,
+  "name": "web01.prod.east.old",
+  "alias": "",
+  "fqdn": "192.0.2.99",
+  "monitoring_server_name": "Central",
+  "status": {
+   "name": "UP"
+  }
+ }
+]
