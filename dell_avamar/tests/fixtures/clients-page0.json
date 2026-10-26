@@ -1,0 +1,8 @@
+{
+  "content": [
+    {"id": "c1", "name": "web01", "domainFqdn": "/vc.example.com/VirtualMachines", "clientType": "VMACHINE", "enabled": true, "activated": true},
+    {"id": "c2", "name": "db01.example.net", "domainFqdn": "/vc.example.com/VirtualMachines", "clientType": "VMACHINE", "enabled": true, "activated": true},
+    {"id": "c3", "name": "agent01", "domainFqdn": "/clients", "clientType": "REGULAR", "enabled": true, "activated": true}
+  ],
+  "last": false
+}

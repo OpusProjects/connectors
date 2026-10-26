@@ -1,0 +1,38 @@
+# Dell Avamar backups as a unified-api source: one connector item, one
+# credential per server, one source. The credential key names become the
+# CREDENTIAL_AVAMAR_<TAG>_* variables the script reads; their values come from
+# AVAMAR_A_URL, AVAMAR_A_USERNAME, AVAMAR_A_PASSWORD and, for OAuth2,
+# AVAMAR_A_CLIENT_ID and AVAMAR_A_CLIENT_SECRET in unified-api's environment.
+connectors:
+  - name: dell-avamar
+    description: "Dell Avamar"
+    type: script
+    project: prj-unified-connectors
+    path: dell_avamar/dell_avamar.py
+    script_args: ["--list"]
+    output_format: ansible
+    timeout_seconds: 600
+
+credentials:
+  - name: cred-avamar-a
+    description: "Avamar server A"
+    type: username_password
+    env_prefix: AVAMAR_A
+    secret_keys:
+      avamar_a_url: URL
+      avamar_a_username: USERNAME
+      avamar_a_password: PASSWORD
+      avamar_a_client_id: CLIENT_ID
+      avamar_a_client_secret: CLIENT_SECRET
+
+sources:
+  - name: src-avamar
+    description: "Avamar backups"
+    connector: dell-avamar
+    credentials: [cred-avamar-a]
+    config:
+      domains: "example.com,example.net"
+      max_backups: "20"
+      insecure: "false"
+    sync_interval_seconds: 7200
+    ttl_seconds: 14400

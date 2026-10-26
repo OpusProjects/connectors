@@ -1,0 +1,6 @@
+{
+  "content": [
+    {"labelNumber": 41, "date": "2026-07-21T22:10:54.000Z", "size": 10737418240, "type": "SCHEDULED", "pluginName": "Linux VMware Image", "retentionTags": {"displayValue": "daily"}, "server": "avamar", "tierStatus": "ACTIVE"},
+    {"labelNumber": 42, "date": "2026-07-22T22:10:54.000Z", "size": 5368709120, "type": "SCHEDULED", "pluginName": "Linux VMware Image", "retentionTags": {"displayValue": "daily"}, "server": "avamar", "tierStatus": "ACTIVE"}
+  ]
+}

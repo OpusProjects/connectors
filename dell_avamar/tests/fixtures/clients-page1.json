@@ -1,0 +1,7 @@
+{
+  "content": [
+    {"id": "c4", "name": "old01", "domainFqdn": "/REPLICATE/RETIRED/old", "clientType": "VMACHINE", "enabled": false, "activated": false},
+    {"id": "c5", "name": "app01", "domainFqdn": "/vc.example.com/VirtualMachines", "clientType": "VMACHINE", "enabled": false, "activated": true}
+  ],
+  "last": true
+}
