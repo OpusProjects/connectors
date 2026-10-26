@@ -1,0 +1,8 @@
+{"result": [
+  {"id": 10, "name": "igrp-web01-prod-shop-east", "ports": [], "luns": [
+    {"lun": 2, "volume_id": 101}, {"lun": 1, "volume_id": 100}]},
+  {"id": 11, "name": "igrp-db-01-test-shop-west", "ports": [], "luns": [{"lun": 1, "volume_id": 102}]},
+  {"id": 12, "name": "legacy-host", "ports": [], "luns": [{"lun": 1, "volume_id": 103}]},
+  {"id": 13, "name": "igrp-idle-prod-shop-east", "ports": [], "luns": []},
+  {"id": 14, "name": "igrp-gone-prod-shop-east", "ports": [], "luns": [{"lun": 1, "volume_id": 999}]}
+], "metadata": {"page": 1, "pages_total": 1}}

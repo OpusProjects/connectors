@@ -1,0 +1,4 @@
+{"result": [
+  {"id": 102, "name": "vol-db-01-data", "serial": "742b0f000000000000000000000003", "size": 53687091200, "pool_id": 1, "provtype": "THIN", "type": "MASTER"},
+  {"id": 103, "name": "vol-legacy", "serial": "", "size": 0, "pool_id": 9, "provtype": "THIN", "type": "MASTER"}
+], "metadata": {"page": 2, "pages_total": 2}}

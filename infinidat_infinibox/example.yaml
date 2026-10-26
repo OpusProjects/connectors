@@ -1,0 +1,38 @@
+# An Infinidat InfiniBox as a unified-api source. One account usually serves
+# every array, so the credential is shared and each source names its array.
+# The credential's keys become CREDENTIAL_USERNAME and CREDENTIAL_PASSWORD;
+# their values come from INFINIBOX_USERNAME and INFINIBOX_PASSWORD in
+# unified-api's own environment.
+connectors:
+  - name: infinibox
+    description: "Infinidat InfiniBox"
+    type: script
+    project: prj-unified-connectors
+    path: infinidat_infinibox/infinidat_infinibox.py
+    script_args: ["--list"]
+    output_format: ansible
+    timeout_seconds: 600
+
+credentials:
+  - name: cred-infinibox
+    description: "InfiniBox API"
+    type: username_password
+    env_prefix: INFINIBOX
+    secret_keys:
+      username: USERNAME
+      password: PASSWORD
+
+sources:
+  - name: src-infinibox-array01
+    description: "InfiniBox array01 volumes"
+    connector: infinibox
+    credentials: [cred-infinibox]
+    config:
+      url: "https://array01.example.com"
+      insecure: "false"
+      # Host objects named igrp-<short>-<a>-<b>-<c> become <short>.<a>.<b>.<c>.example.com
+      host_prefix: "igrp-"
+      dotted_segments: "3"
+      domain: "example.com"
+    sync_interval_seconds: 7200
+    ttl_seconds: 600

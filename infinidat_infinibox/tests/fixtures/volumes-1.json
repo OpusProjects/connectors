@@ -1,0 +1,4 @@
+{"result": [
+  {"id": 100, "name": "vol-web01-boot", "serial": "742b0f000000000000000000000001", "size": 107374182400, "pool_id": 1, "provtype": "THIN", "type": "MASTER"},
+  {"id": 101, "name": "vol-web01-data", "serial": "742b0f000000000000000000000002", "size": 1099511627776, "pool_id": 2, "provtype": "THICK", "type": "MASTER"}
+], "metadata": {"page": 1, "pages_total": 2}}
