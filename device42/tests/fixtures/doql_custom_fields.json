@@ -1,0 +1,17 @@
+[
+ {
+  "device_fk": "1",
+  "BusinessUnit": "Retail",
+  "Layer": "web"
+ },
+ {
+  "device_fk": "2",
+  "BusinessUnit": "Retail",
+  "Layer": "DataStore"
+ },
+ {
+  "device_fk": "4",
+  "BusinessUnit": "",
+  "Layer": "app"
+ }
+]

@@ -1,0 +1,34 @@
+{
+ "name": "db01.example.com",
+ "os": "Red Hat Enterprise Linux",
+ "service_level": "production",
+ "type": "physical",
+ "virtual_subtype": "",
+ "physical_subtype": "rackmount",
+ "customer": {
+  "name": "Team A"
+ },
+ "customer_id": 7,
+ "ip_addresses": [
+  {
+   "ip": "192.0.2.20",
+   "label": "ens160",
+   "type": "2"
+  },
+  {
+   "ip": "198.51.100.5",
+   "label": "vip",
+   "type": "1"
+  }
+ ],
+ "custom_fields": [
+  {
+   "key": "BusinessUnit",
+   "value": "Retail"
+  },
+  {
+   "key": "Layer",
+   "value": "DataStore"
+  }
+ ]
+}

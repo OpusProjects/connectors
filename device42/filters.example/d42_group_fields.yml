@@ -1,0 +1,4 @@
+# Device fields that become groups: <field>_<value>, with the value as a group variable.
+- service_level
+- type
+- device_sub_type

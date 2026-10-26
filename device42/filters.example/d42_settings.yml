@@ -1,0 +1,18 @@
+# Also list devices with no address (default false).
+include_hosts_without_ip: false
+
+# For a device with no address that DNS cannot resolve either: true marks it
+# as reached by host name, false as unresolved.
+hostname_as_fallback: false
+
+# Every host also joins d42_inventory_source_<name>.
+inventory_source: lab
+
+# datacenter_<name> groups by the network a host's addresses are in.
+datacenter_networks:
+  east: ["192.0.2.0/25"]
+  west: ["192.0.2.128/25"]
+
+# datacenter_<name> groups by host name suffix; the longest match wins.
+datacenter_domains:
+  west.example.net: west
