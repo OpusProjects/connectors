@@ -3,7 +3,7 @@
 A gitops connector describes the kinds of object it manages, writes two
 functions and hands them to run:
 
-    from unified_connector import ConnectorError, run
+    from unified_connectors import ConnectorError, run
 
     def list_objects(kind, config, credentials):
         return [{"name": "a"}]                    # what exists now

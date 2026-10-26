@@ -55,10 +55,12 @@ vmware_vcenter/
     └── fixtures/         # recorded API responses, anonymised, so tests run offline
 ```
 
-`unified_connector.py` at the root is the shared SDK. Inventory connectors read their settings with
-its `settings`, `as_list`, `as_bool` and `as_int` (unified-api passes every `config:` value as a
-string) and find per-system credentials with `credential_sets`. Code two connectors need goes in a
-module at the root too, never in a vendor folder.
+`unified_connectors/` is the shared SDK: a package every connector imports after putting the
+repository root on its path, laid out like a connector otherwise (its code in
+`unified_connectors.py`, a README, `tests/`). Inventory connectors read their settings with its
+`settings`, `as_list`, `as_bool` and `as_int` (unified-api passes every `config:` value as a
+string) and find per-system credentials with `credential_sets`. Code two connectors need goes in
+the SDK too, never in a vendor folder.
 
 ## Connector rules
 

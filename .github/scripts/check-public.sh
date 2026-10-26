@@ -12,7 +12,7 @@ fi
 
 # IPv4 addresses other than 192.0.2.0/24, 198.51.100.0/24, 203.0.113.0/24,
 # loopback and 0.0.0.0.
-ips=$(grep -rnoE --exclude-dir=.git '\b([0-9]{1,3}\.){3}[0-9]{1,3}\b' . \
+ips=$(grep -rnoE --exclude-dir=.git --exclude-dir=__pycache__ '\b([0-9]{1,3}\.){3}[0-9]{1,3}\b' . \
   | grep -vE ':(192\.0\.2|198\.51\.100|203\.0\.113)\.[0-9]+$|:127\.[0-9.]+$|:0\.0\.0\.0$' || true)
 if [ -n "$ips" ]; then
   echo "$ips"

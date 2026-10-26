@@ -8,7 +8,7 @@ project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
-- The connector SDK (`unified_connector.py`) and the `kv` example gitops connector.
+- The connector SDK (the `unified_connectors` package) and the `kv` example gitops connector.
 - SDK helpers for inventory connectors: settings from the source's config as strings or JSON, and per-system credential sets.
 - `centreon`: Centreon monitored hosts as an Ansible inventory, with their services when asked.
 - `cisco_ucs`: Cisco UCS Manager blades as an Ansible inventory, servers and spares apart.
