@@ -1,0 +1,3 @@
+[
+  {"name": "shared-vg", "volumes": ["shared-vg/data01", "shared-vg/data02"]}
+]
