@@ -1,0 +1,22 @@
+[
+ {
+  "id": 301,
+  "name": "Backup",
+  "is_activated": false,
+  "hosts": [
+   {
+    "name": "web01.prod.east"
+   }
+  ]
+ },
+ {
+  "id": 201,
+  "name": "Ping",
+  "is_activated": true,
+  "hosts": [
+   {
+    "name": "web01.prod.east"
+   }
+  ]
+ }
+]

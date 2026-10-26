@@ -1,0 +1,11 @@
+{
+ "Linux-Servers": [
+  {
+   "name": "web01.prod.east"
+  },
+  {
+   "name": "db01.prod.west.example.com"
+  }
+ ],
+ "Empty Group": []
+}
