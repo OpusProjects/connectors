@@ -1,0 +1,10 @@
+# Case-insensitive substrings matched against a device field.
+# avoid: a device whose field contains any pattern is left out.
+# required: a device must contain one of the patterns in each listed field.
+avoid:
+  os:
+    - Windows
+    - VMware ESXi
+  name:
+    - -ilo
+required: {}

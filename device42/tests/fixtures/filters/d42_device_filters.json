@@ -1,0 +1,12 @@
+{
+  "avoid": {
+    "os": [
+      "Windows",
+      "VMware ESXi"
+    ],
+    "name": [
+      "-ilo"
+    ]
+  },
+  "required": {}
+}

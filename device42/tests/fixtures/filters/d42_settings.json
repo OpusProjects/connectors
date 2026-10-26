@@ -1,0 +1,16 @@
+{
+  "include_hosts_without_ip": false,
+  "hostname_as_fallback": false,
+  "inventory_source": "lab",
+  "datacenter_networks": {
+    "east": [
+      "192.0.2.0/25"
+    ],
+    "west": [
+      "192.0.2.128/25"
+    ]
+  },
+  "datacenter_domains": {
+    "west.example.net": "west"
+  }
+}

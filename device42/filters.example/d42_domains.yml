@@ -1,0 +1,3 @@
+# Device names ending in any of these are included; empty means every device.
+- example.com
+- example.net
