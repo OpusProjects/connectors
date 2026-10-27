@@ -10,7 +10,6 @@ connectors:
     path: centreon/centreon.py
     script_args: ["--list"]
     host_args: ["--host-with-groups", "{target}"]
-    output_format: ansible
     timeout_seconds: 600
 
 credentials:

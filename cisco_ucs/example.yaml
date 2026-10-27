@@ -10,14 +10,12 @@ connectors:
     project: prj-unified-connectors
     path: cisco_ucs/cisco_ucs.py
     script_args: ["--list"]
-    output_format: ansible
   - name: cisco-ucs-spares
     description: "Cisco UCS Manager, blades with no service profile"
     type: script
     project: prj-unified-connectors
     path: cisco_ucs/cisco_ucs.py
     script_args: ["--list", "--spares"]
-    output_format: ansible
 
 credentials:
   - name: cred-ucs-a

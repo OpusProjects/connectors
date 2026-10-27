@@ -10,7 +10,6 @@ connectors:
     project: prj-unified-connectors
     path: dell_avamar/dell_avamar.py
     script_args: ["--list"]
-    output_format: ansible
     timeout_seconds: 600
 
 credentials:
