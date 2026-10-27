@@ -13,7 +13,6 @@ connectors:
     path: vmware_vcenter/vmware_vcenter.py
     script_args: ["--list", "--prefer-guest-dns", "--no-resolve-fqdn"]
     host_args: ["--host-with-groups", "{target}", "--prefer-guest-dns", "--resolve-fqdn"]
-    output_format: ansible
   - name: vcenter-fqdn
     description: "VMware vCenter, names resolved through DNS"
     type: script
@@ -21,7 +20,6 @@ connectors:
     path: vmware_vcenter/vmware_vcenter.py
     script_args: ["--list", "--prefer-guest-dns", "--resolve-fqdn"]
     host_args: ["--host-with-groups", "{target}", "--prefer-guest-dns", "--resolve-fqdn"]
-    output_format: ansible
     timeout_seconds: 1800
 
 credentials:
