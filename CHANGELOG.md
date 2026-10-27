@@ -19,3 +19,7 @@ project adheres to [Semantic Versioning](https://semver.org/).
 - `pure_flasharray`: Pure Storage FlashArray hosts as an Ansible inventory, with their volumes.
 - `vmware_vcenter`: vCenter virtual machines as an Ansible inventory, through the PropertyCollector (needs pyvmomi).
 - One folder per system (`vendor_product`), with its README, example and `tests/`; CI runs ruff, pytest and a check that nothing identifies where a connector runs.
+
+### Changed
+
+- The example connector items no longer set `output_format`: unified-api 0.36 reads Ansible inventory JSON, the only format these connectors print, and `ansible` is its only value.
