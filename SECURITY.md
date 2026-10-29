@@ -14,7 +14,7 @@ Only the latest release line receives security fixes.
 Please **do not open a public issue** for security problems.
 
 Use GitHub's private vulnerability reporting instead:
-[Report a vulnerability](https://github.com/OpusProjects/unified-connectors/security/advisories/new)
+[Report a vulnerability](https://github.com/OpusProjects/connectors/security/advisories/new)
 — it opens a private thread with the maintainers.
 
 Include what you can: the affected connector, reproduction steps, and
